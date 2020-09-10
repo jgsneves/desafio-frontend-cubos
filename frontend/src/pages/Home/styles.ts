@@ -18,7 +18,7 @@ export const Header = styled.header`
 
     h1 {
         color: #02D3D7;
-        font-family: 'Abel', sans-serif;
+        font-family: 'Abel', sans-serif; 
     }
 `;
 
@@ -135,5 +135,4 @@ export const Genre = styled.div`
     width: 80px;
     color: #116193;
     font-family: 'Abel', sans-serif;
-    
 `;
