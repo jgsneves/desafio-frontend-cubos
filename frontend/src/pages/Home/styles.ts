@@ -40,6 +40,7 @@ export const SingleMovieContent = styled.div`
     display: flex;
     background-color: #ebebeb;
     width: 50vw;
+    margin-bottom: 20px;
   
     ${media.lessThan("large")`
         width: 100vw;
