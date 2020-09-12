@@ -1,11 +1,17 @@
 import styled from 'styled-components';
 import media from 'styled-media-query';
+import {PlusCircle} from 'react-feather';
 
 export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
 
+    h3 {
+        font-family: 'Abel', sans-serif;
+        font-size: 30px;
+        padding: 20px;
+    }
 `;
 
 export const SearchInput = styled.input`
@@ -122,4 +128,21 @@ export const Genre = styled.div`
     width: 80px;
     color: #116193;
     font-family: 'Abel', sans-serif;
+`;
+
+export const PageNumbersContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const Page = styled.div`
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+`;
+
+export const PlusCircleIcon = styled(PlusCircle)`
+    cursor: pointer;
+    margin: 10px;
 `;

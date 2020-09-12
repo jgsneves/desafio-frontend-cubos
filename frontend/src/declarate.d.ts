@@ -22,3 +22,8 @@ interface Imovie {
     overview: string;
     release_date: number;    
 }
+
+interface IGenre {
+    id: number;
+    name: string;
+} 
