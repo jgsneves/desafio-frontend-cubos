@@ -2,7 +2,6 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import {
     Wrapper,
-    Header,
     SearchInput,
     SingleMovieContent,
     MoviePoster,
@@ -15,28 +14,13 @@ import {
     Genre,
 } from './styles';
 import api from '../../service/api';
-
-interface Imovie {
-    popularity: number;
-    vote_count: number;
-    video: boolean;
-    poster_path: string;
-    id: number;
-    adult: boolean;
-    backdrop_path: string;
-    original_language: string;
-    original_title: string;
-    genre_ids: [number];
-    title: string;
-    vote_average: number;
-    overview: string;
-    release_date: number;    
-}
+import Header from '../../components/header/index';
 
 const Home = () => {
     const [dataToSearch, setDataToSearch] = useState<string>('');
     const [arrayOfMovies, setArrayOfMovies] = useState<Imovie[]>([]);
     const baseUrlOfPosters = 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/';
+    const baseURlofSearch = 'search/movie?api_key=fc86ffd2138d748994445f1d5686e213&language=pt-br&query=';
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const {value} = event.target;
@@ -44,7 +28,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        api.get(dataToSearch).then(response => {
+        api.get(`${baseURlofSearch+dataToSearch}`).then(response => {
             const moviesQuery = response.data.results;
             setArrayOfMovies(moviesQuery);
         });
@@ -53,20 +37,20 @@ const Home = () => {
     return (
         <>
             <Wrapper>
-                <Link to='/' style={{textDecoration: 'none'}}>
-                    <Header>
-                        <h1>Movies</h1>
-                    </Header>
-                </Link>
+                <Header />
 
                 <SearchInput 
                     placeholder="Busque um filme por nome ou gênero..." 
                     onChange={handleInputChange}
                 />
 
-                <Link to='/movies' style={{textDecoration: 'none'}}>
-                    {arrayOfMovies.map(movie => (
-                        <SingleMovieContent key={movie.id}>
+                {arrayOfMovies.map(movie => (
+                    <Link 
+                        to={`/movies/${movie.id}`} 
+                        style={{textDecoration: 'none'}} 
+                        key={movie.id}
+                    >
+                        <SingleMovieContent>
                             <MoviePoster src={`${baseUrlOfPosters}${movie.poster_path}`}/>
 
                             <Details>
@@ -87,8 +71,8 @@ const Home = () => {
                                 </GenreContainer>
                             </Details>
                         </SingleMovieContent>
-                    ))}
-                </Link>
+                    </Link>
+                ))}
 
             </Wrapper>
         </>

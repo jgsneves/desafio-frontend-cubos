@@ -8,20 +8,6 @@ export const Wrapper = styled.div`
 
 `;
 
-export const Header = styled.header`
-    display: flex;
-    background-color: #116193;
-    width: 100vw;
-    height: 80px;
-    justify-content: center;
-    align-items: center;
-
-    h1 {
-        color: #02D3D7;
-        font-family: 'Abel', sans-serif; 
-    }
-`;
-
 export const SearchInput = styled.input`
     border: 0;
     margin-top: 32px;

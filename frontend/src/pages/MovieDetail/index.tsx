@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
+    LoadingSpinner,
     Wrapper,
-    Header,
     MovieContainer,
     TitleContainer,
     Title,
@@ -19,24 +19,41 @@ import {
     Score,
     MoviePoster
 } from './styles';
-import { Link } from 'react-router-dom';
+import Header from '../../components/header/index';
+import {RouteComponentProps} from 'react-router-dom';
+import api from '../../service/api';
 
-const MovieDetail = () => {
+type IProps = RouteComponentProps<{id: string}>;
+
+const MovieDetail = (props: IProps) => {
+    const {id} = props.match.params;
+    const [chosenMovie, setChosenMovie] = useState<Imovie>();
+    const apiKey = 'fc86ffd2138d748994445f1d5686e213';
+    const baseUrlOfPosters = 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/';
+    const languageParam = 'language=pt-br';
+
+    useEffect(() => {
+        api.get(`/movie/${id}?api_key=${apiKey}&${languageParam}`).then(response => {
+            const {data} = response;
+            setChosenMovie(data);
+        })
+    }, [id]);
+
+    if (!chosenMovie) {
+        return <LoadingSpinner />
+    }
+    
     return (
         <>
         <Wrapper>
 
-            <Link to='/' style={{textDecoration: 'none'}}>
-                <Header>
-                    <h1>Movies</h1>
-                </Header>
-            </Link>
+            <Header />
 
             <MovieContainer>
 
                 <TitleContainer>
-                    <Title>Thor: Ragnarok</Title>
-                    <ReleaseDate>25/10/2017</ReleaseDate>
+                    <Title>{chosenMovie?.title}</Title>
+                    <ReleaseDate>{chosenMovie?.release_date}</ReleaseDate>
                 </TitleContainer>
                 
                 <Main>
@@ -44,7 +61,7 @@ const MovieDetail = () => {
                         <SinopseTitle>Sinopse</SinopseTitle>
                         
                         <Sinopse>
-                            Sed arcu metus sagittis proin aenean vulputate eu rutrum, rhoncus id congue ipsum lorem scelerisque facilisis, lacinia adipiscing quam lacinia aliquet quis hac. pulvinar sed per et curae aliquam, donec vestibulum nostra tellus vitae, cras sollicitudin ultricies venenatis. suscipit lorem tincidunt vel velit nibh duis lacinia interdum turpis, mollis nibh aliquet conubia ut aptent enim orci, litora lacus iaculis ornare luctus vel praesent velit. at pellentesque justo phasellus nec tincidunt viverra per, donec ligula aliquam vel torquent in phasellus elit, metus elementum imperdiet tortor quis consectetur. proin ut lacinia donec ipsum integer porta faucibus, suscipit enim porta netus mauris lacus. 
+                            {chosenMovie?.overview}
                         </Sinopse>
                         
                         <InfoTitle>Informações</InfoTitle>
@@ -52,11 +69,29 @@ const MovieDetail = () => {
                         <DetailsContainer>
                             <Detail>
                                 <h4>Situação</h4>
-                                <p>Lançado</p>
+                                <p>{chosenMovie?.status}</p>
                             </Detail>
                             <Detail>
-                                <h4>Situação</h4>
-                                <p>Lançado</p>
+                                <h4>Idioma</h4>
+                                {chosenMovie?.spoken_languages.map(lang => (
+                                    <p>{lang.name}</p>
+                                ))}
+                            </Detail>
+                            <Detail>
+                                <h4>Duração</h4>
+                                <p>{chosenMovie?.runtime} minutos</p>
+                            </Detail>
+                            <Detail>
+                                <h4>Orçamento</h4>
+                                <p>US$ {chosenMovie?.budget}</p>
+                            </Detail>
+                            <Detail>
+                                <h4>Receita</h4>
+                                <p>US$ {chosenMovie?.revenue}</p>
+                            </Detail>
+                            <Detail>
+                                <h4>Lucro</h4>
+                                <p>US$ {chosenMovie.revenue - chosenMovie.budget}</p>
                             </Detail>
                         </DetailsContainer>
                         
@@ -66,11 +101,11 @@ const MovieDetail = () => {
                         </GenreContainer>
                         
                         <ScoreContainer>
-                            <Score>75%</Score>
+                            <Score>{chosenMovie?.vote_average}</Score>
                         </ScoreContainer>
                     </Content>
                 
-                    <MoviePoster src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/yB3AkkGMFplGlnPqQZ38W7bdD10.jpg" />
+                    <MoviePoster src={baseUrlOfPosters + chosenMovie.poster_path} />
                 </Main>
             </MovieContainer>
         </Wrapper>

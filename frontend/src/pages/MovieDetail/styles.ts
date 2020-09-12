@@ -1,6 +1,18 @@
 import styled from 'styled-components';
 
 
+export const LoadingSpinner = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+`;
+
 export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -8,18 +20,6 @@ export const Wrapper = styled.div`
     font-family: 'Abel', sans-serif;
 `;
 
-export const Header = styled.header`
-    display: flex;
-    background-color: #116193;
-    width: 100vw;
-    height: 80px;
-    justify-content: center;
-    align-items: center;
-
-    h1 {
-        color: #02D3D7;
-    }
-`;
 
 export const MovieContainer = styled.div`
     background-color: #F2F2F2;

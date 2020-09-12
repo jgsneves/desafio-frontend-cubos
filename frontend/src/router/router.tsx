@@ -6,7 +6,7 @@ import MovieDetail from '../pages/MovieDetail';
 const Router = () => (
     <BrowserRouter>
         <Route path='/' component={Home} exact />
-        <Route path='/movies' component={MovieDetail} exact/>
+        <Route path='/movies/:id' component={MovieDetail} />
     </BrowserRouter>
 );
 
