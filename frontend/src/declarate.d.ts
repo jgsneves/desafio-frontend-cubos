@@ -8,6 +8,10 @@ interface Imovie {
     spoken_languages: [{
         iso_639_1: string;
         name: string;
+    }],
+    genres: [{
+        id: number;
+        name: string;
     }]
     id: number;
     runtime: number;

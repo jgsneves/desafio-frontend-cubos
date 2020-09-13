@@ -96,12 +96,13 @@ const MovieDetail = (props: IProps) => {
                         </DetailsContainer>
                         
                         <GenreContainer>
-                            <Genre>ação</Genre>
-                            <Genre>aventura</Genre>
+                            {chosenMovie.genres.map(genre => (
+                                <Genre>{genre.name}</Genre>
+                            ))}
                         </GenreContainer>
                         
                         <ScoreContainer>
-                            <Score>{chosenMovie?.vote_average}</Score>
+                            <Score>{chosenMovie?.vote_average * 10}%</Score>
                         </ScoreContainer>
                     </Content>
                 
