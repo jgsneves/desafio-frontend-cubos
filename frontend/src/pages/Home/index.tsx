@@ -49,12 +49,16 @@ const Home = () => {
 
     useEffect(() => {
         api.get(baseUrlOfGenre).then(response => {
-            const {data} = response;
-            setArrayOfGenres(data);
+            const genreQuery = response.data.genres;
+            setArrayOfGenres(genreQuery);
         })
     }, []);
 
-    console.log(arrayOfGenres);
+    function getGenre(genreIds: [number], genreList: IGenre[]) {
+        const filteredGenres = genreIds.map( id => genreList.find(genre => genre.id === id));
+        const newGenre = filteredGenres.map(gen => <Genre>{gen?.name}</Genre>);
+        return newGenre;
+    }
 
     return (
         <>
@@ -89,7 +93,7 @@ const Home = () => {
                                 <Sinopse>{movie.overview}</Sinopse>
 
                                 <GenreContainer>
-                                    <Genre>fazer a função que percorre duas arrays</Genre>
+                                    {getGenre(movie.genre_ids, arrayOfGenres)}
                                 </GenreContainer>
                             </Details>
                         </SingleMovieContent>
