@@ -122,10 +122,11 @@ export const Genre = styled.div`
     background-color: #FFFFFF;
     border: 1px;
     margin: 5px;
+    padding: 5px;
     border-color: #116193;
     border-style: solid;
     border-radius: 20px;
-    width: 80px;
+    width: auto;
     color: #116193;
     font-family: 'Abel', sans-serif;
 `;
