@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import media from 'styled-media-query';
 
 export const LoadingSpinner = styled.div`
     display: flex;
@@ -18,6 +18,10 @@ export const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     font-family: 'Abel', sans-serif;
+
+    ${media.lessThan('small')`
+        max-width: 100vw;
+    `}
 `;
 
 
@@ -54,12 +58,20 @@ export const SinopseTitle = styled.h3`
     border-bottom-style: solid;
     border-bottom-color: #00E8E4;
     margin: 10px;
+
+    ${media.lessThan('small')`
+        max-width: 40vw;
+    `}
 `;
 
 export const Sinopse = styled.p`
     font-family: 'Lato', sans-serif;
     font-size: 15px;
     margin: 10px;
+
+    ${media.lessThan('small')`
+        max-width: 70vw;
+    `}
 `;
 
 export const InfoTitle = styled.h3`
@@ -67,11 +79,16 @@ export const InfoTitle = styled.h3`
     border-bottom-style: solid;
     border-bottom-color: #00E8E4;
     margin: 10px;
+
+    ${media.lessThan('small')`
+        max-width: 40vw;
+    `}
 `;
 
 export const DetailsContainer = styled.div`
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 `;
 
 export const Detail = styled.div`
@@ -137,4 +154,8 @@ export const Score = styled.p`
 
 export const MoviePoster = styled.img`
     width: 20vw;
+
+    ${media.lessThan('small')`
+        display: none;
+    `}
 `;
